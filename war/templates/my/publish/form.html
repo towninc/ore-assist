@@ -1,0 +1,100 @@
+<div class="box_grayLinewhite mt5">
+    <h4 style="display:none;" id="addTitle"><liquidtpl:text key="publish"/> <liquidtpl:text key="add"/></h4>
+    <h4 style="display:none;" id="editTitle"><liquidtpl:text key="publish"/> <liquidtpl:text key="edit"/></h4>
+    <script type="text/javascript">
+        //<![CDATA[
+        $.codeEditor = null;
+        $.plainMode = false;
+        $.codeMirror = function(){
+            if($.plainMode == true){
+                return;
+            }
+            var type = $("#contentTypeField").val();
+            var mode = "css";
+            if(type == "text/xml"){
+                mode = "xml";
+            } else if (type == "text/html") {
+                mode = "htmlmixed";
+            } else if (type == "text/javascript") {
+                mode = "javascript";
+            }
+
+            if($.codeEditor){
+                $.codeEditor.toTextArea();
+            }
+            //first set up some variables
+            var textarea = document.getElementById('contentField');
+            var uiOptions = { path : '/js/plugins/codemirror/'}
+            var codeMirrorOptions = { mode: mode }
+
+            //then create the editor
+            $.codeEditor = new CodeMirrorUI(textarea, uiOptions, codeMirrorOptions);
+            //$.codeEditor = CodeMirror.fromTextArea(document.getElementById("contentField"), {mode: mode, tabMode: "indent"});
+        }
+
+        $.onChangePlainMode = function(flag){
+            $.plainMode = flag;
+            if($.plainMode == true){
+                if($.codeEditor){
+                    $.codeEditor.toTextArea();
+                    $.codeEditor = null;
+                }
+            } else {
+                $.codeMirror();
+            }
+        }
+
+        $(function(){
+            $.publishForm = {};
+            $.initForm("publishForm", "/my/publish/json", null, function(jsonData){
+                var values = jsonData.values;
+                //ContentType
+                $.tmpl( "optionsTemplate", values.contentTypeMapAll ).appendTo( "#contentTypeField");
+                $.setFormValues( "publishForm", jsonData, function(){
+                    $.codeMirror();
+                });
+
+
+                //Published
+                $( "#isPublishedItem" ).tmpl( values.isPublishedMapAll ).appendTo( "#isPublishedField");
+                if(values.isPublished == true) {
+                    $("input[name=isPublished]").val(['true']);
+                } else {
+                    $("input[name=isPublished]").val(['false']);
+                }
+
+                $.codeMirror();
+            });
+        });
+        //]]>
+    </script>
+    <form action="/my/publish/form" id="publishForm" style="display: none;">
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="publish.name"/> <strong class="fcRed">(*)</strong></label>
+            <span id="nameError" class="warningMessageOne" style="display:none;" />
+            <input id="nameField" name="name" class="w99" />
+        </div>
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="publish.isPublished"/></label>
+            <span id="isPublishedError" class="warningMessageOne" style="display:none;" />
+            <span id="isPublishedField"></span>
+            <script id="isPublishedItem" type="text/x-jquery-tmpl">
+                <label for="isPublishedField_${key}">
+                    <input class="mr0" id="isPublishedField_${key}" name="isPublished" value="${key}" type="radio"/>
+                    ${value}
+                </label>
+            </script>
+        </div>
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="publish.contentType"/></label>
+            <span id="contentTypeError" class="warningMessageOne" style="display:none;" />
+            <select id="contentTypeField" name="contentType" onchange="$.codeMirror();"></select>
+            <label class="small" for="plainModeField"><input type="checkbox" name="plainMode" id="plainModeField" onchange="$.onChangePlainMode(this.checked);"/>Use normal textarea</label>
+        </div>
+        <div class="ma5">
+            <label class="bold"><liquidtpl:text key="publish.content"/></label>
+            <span id="contentError" class="warningMessageOne" style="display:none;" />
+            <textarea id="contentField" name="content"  class="w99" rows="80"></textarea>
+        </div>
+    </form>
+</div>

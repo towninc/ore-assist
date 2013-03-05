@@ -1,0 +1,29 @@
+<script type="text/javascript">
+    //<![CDATA[
+    $(function(){
+        $.initList( "publishList", "publishItem", true, "/my/publish/json", null, function(jsonData){
+            var values = jsonData.values;
+            $.setListValues("publishList", "publishItem", true, jsonData)
+        });
+    });
+    //]]>
+</script>
+<h4><liquidtpl:text key="publish.list"/></h4>
+
+<table id="publishList" class="listTable" style="display: none;">
+    <tr class="row">
+        <th><liquidtpl:text key="publish.isPublished"/></th>
+<th><liquidtpl:text key="publish.name"/></th>
+<th></th>
+<th></th>
+</tr>
+</table>
+
+<script id="publishItem" type="text/x-jquery-tmpl">
+    <tr class="row selectable">
+        <td class='thin'>{{if isPublished==true}}<liquidtpl:text key="publish.isPublished.true" />{{else}}<liquidtpl:text key="publish.isPublished.false" />{{/if}}</td>
+        <td><a href="{{if isPublished==true}}/_ah/${id}/view.${extension}{{else}}/my/publish/view?id=${id}{{/if}}" target="_blank">${name}</a></td>
+        <td class='thin'><a href="/my/publish/form?id=${id}" class="icon_edit"><liquidtpl:text key="edit"/></a></td>
+        <td class='thin'><a href="/my/publish/delete?id=${id}" class="icon_delete" onclick="return confirm('${deleteConfirm}');"><liquidtpl:text key="delete"/></a></td>
+    </tr>
+</script>
