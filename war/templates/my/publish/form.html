@@ -71,12 +71,12 @@
     <form action="/my/publish/form" id="publishForm" style="display: none;">
         <div class="ma5">
             <label class="bold"><liquidtpl:text key="publish.name"/> <strong class="fcRed">(*)</strong></label>
-            <span id="nameError" class="warningMessageOne" style="display:none;" />
+            <span id="nameError" class="warningMessageOne" style="display:none;" > </span>
             <input id="nameField" name="name" class="w99" />
         </div>
         <div class="ma5">
             <label class="bold"><liquidtpl:text key="publish.isPublished"/></label>
-            <span id="isPublishedError" class="warningMessageOne" style="display:none;" />
+            <span id="isPublishedError" class="warningMessageOne" style="display:none;" > </span>
             <span id="isPublishedField"></span>
             <script id="isPublishedItem" type="text/x-jquery-tmpl">
                 <label for="isPublishedField_${key}">
@@ -87,13 +87,13 @@
         </div>
         <div class="ma5">
             <label class="bold"><liquidtpl:text key="publish.contentType"/></label>
-            <span id="contentTypeError" class="warningMessageOne" style="display:none;" />
+            <span id="contentTypeError" class="warningMessageOne" style="display:none;" > </span>
             <select id="contentTypeField" name="contentType" onchange="$.codeMirror();"></select>
             <label class="small" for="plainModeField"><input type="checkbox" name="plainMode" id="plainModeField" onchange="$.onChangePlainMode(this.checked);"/>Use normal textarea</label>
         </div>
         <div class="ma5">
             <label class="bold"><liquidtpl:text key="publish.content"/></label>
-            <span id="contentError" class="warningMessageOne" style="display:none;" />
+            <span id="contentError" class="warningMessageOne" style="display:none;" > </span>
             <textarea id="contentField" name="content"  class="w99" rows="80"></textarea>
         </div>
     </form>
