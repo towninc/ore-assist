@@ -1,6 +1,6 @@
 package com.aimluck.controller.my.publish
 
-import dispatch.json.JsValue
+import dispatch.classic.json.JsValue
 import java.util.Date
 import java.util.logging.Logger
 import scala.collection.JavaConversions._

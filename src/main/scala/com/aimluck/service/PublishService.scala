@@ -27,7 +27,7 @@ object PublishService {
   val logger = Logger.getLogger(PublishService.getClass.getName)
 
   object PublishProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object PublishFormat extends Format[Publish] {
@@ -53,7 +53,7 @@ object PublishService {
   }
 
   object PublishListProtocol extends DefaultProtocol {
-    import dispatch.json._
+    import dispatch.classic.json._
     import JsonSerialization._
 
     implicit object PublishFormat extends Format[Publish] {
