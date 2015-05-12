@@ -19,7 +19,7 @@ object AppConstants {
 
   // settings for validate
   val VALIDATE_STRING_LENGTH = 100
-  val VALIDATE_LONGTEXT_LENGTH = 10000
+  val VALIDATE_LONGTEXT_LENGTH = 100000
 
   // settings for check-alive
   val DEFAULT_SENDER="%s <yusuke.takase.al@gmail.com>".format(LanguageUtil.get("title"))
