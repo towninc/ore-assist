@@ -91,7 +91,7 @@
     </security-constraint>
     <security-constraint>
         <web-resource-collection>
-            <url-pattern>/*</url-pattern>
+            <url-pattern>/my/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>*</role-name>
@@ -100,7 +100,7 @@
     <!-- CONFIDENTIAL -->
     <security-constraint>
         <web-resource-collection>
-            <url-pattern>/*/*</url-pattern>
+            <url-pattern>/my/*</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
